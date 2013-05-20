@@ -24,8 +24,10 @@ var RadarChart = {
     var allAxis = (d[0].map(function(i, j){return i.axis}));
     total = allAxis.length;
     var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
-    d3.select(id).select("svg").remove();
-    var g = d3.select(id).append("svg").attr("width", cfg.w).attr("height", cfg.h).append("g");
+    var element = d3.select(id);
+    id = element.id;
+    element.select("svg").remove();
+    var g = element.append("svg").attr("width", cfg.w).attr("height", cfg.h).append("g");
 
     for(var j=0; j<cfg.levels; j++){
       var levelFactor = cfg.factor*radius*((j+1)/cfg.levels);
@@ -41,7 +43,6 @@ var RadarChart = {
     var color = d3.scale.category10();
 
     series = 0;
-
     var axis = g.selectAll(".axis").data(allAxis).enter().append("g").attr("class", "axis");
 
     axis.append("line")
